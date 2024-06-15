@@ -1,0 +1,5 @@
+.idea
+me.session
+secret_data
+.venv
+events/__pycache__
