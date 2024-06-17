@@ -30,7 +30,7 @@ async def weather(event, client):
                                         f'<pre>temp feels like: {json["main"]["feels_like"]}C</pre>\n'
                                         f'<pre>pressure: {json["main"]["pressure"]}mm</pre>\n'
                                         f'<pre>humidity: {json["main"]["humidity"]}%</pre>\n'
-                                        f'<pre>wind: {json['wind']['speed']}km/h</pre>\n', parse_mode='HTML')
+                                        f'<pre>wind: {json["wind"]["speed"]}km/h</pre>\n', parse_mode='HTML')
 
     else:
 

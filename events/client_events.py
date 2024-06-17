@@ -3,6 +3,7 @@ import configparser
 from events.for_all_events.me_file import me
 from events.for_all_events.weather_file import weather
 from events.only_my_events.you_file import you
+from events.for_all_events.currency_file import currency
 
 
 config = configparser.ConfigParser()
@@ -35,3 +36,10 @@ async def weather_event(event):
 async def you_event(event):
 
     await you(event, client)
+
+
+@client.on(events.NewMessage(pattern=r'(?i)(^\?currency)',
+                             func=lambda event: event.is_private or event.is_group))
+async def currency_event(event):
+
+    await currency(event, client)
