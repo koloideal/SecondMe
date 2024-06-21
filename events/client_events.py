@@ -4,6 +4,7 @@ from events.for_all_events.me_file import me
 from events.for_all_events.weather_file import weather
 from events.only_my_events.you_file import you
 from events.for_all_events.currency_file import currency
+from events.for_all_events.sticker_file import sticker
 
 
 config = configparser.ConfigParser()
@@ -43,3 +44,9 @@ async def you_event(event):
 async def currency_event(event):
 
     await currency(event, client)
+
+
+@client.on(events.NewMessage(pattern='/sticker'))
+async def sticker_event(event):
+
+    await sticker(event, client)
