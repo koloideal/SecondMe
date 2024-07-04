@@ -63,13 +63,22 @@ async def sticker(event: events, client: TelegramClient):
 
             user = await client.get_entity(replied_msg.sender_id)
             avatar = await client.download_profile_photo(user, file=bytes)
+
+            if not avatar:
+
+                await in_progress.delete()
+
+                await event.reply('<code>User must have an avatar</code>', parse_mode='HTML')
+
+                return
+
             text = replied_msg.text
 
-            avatar_path = 'avatar.png'
+            avatar_path = 'stickers_data/avatar.png'
             with open(avatar_path, 'wb') as f:
                 f.write(avatar)
 
-            output_path = 'sticker.png'
+            output_path = 'stickers_data/sticker.png'
             create_image_with_text(avatar_path, text, output_path)
 
             file = await client.upload_file(output_path)
@@ -78,7 +87,7 @@ async def sticker(event: events, client: TelegramClient):
                 media=InputMediaUploadedDocument(
                     file=file,
                     mime_type='image/png',
-                    attributes=[DocumentAttributeFilename('sticker.png')]
+                    attributes=[DocumentAttributeFilename('sticker_data/sticker.png')]
                 )
             ))
 
