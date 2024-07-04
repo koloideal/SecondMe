@@ -1,10 +1,26 @@
-from telethon.tl.types import InputStickerSetItem, InputDocument, InputStickerSetID, InputStickerSetShortName
+from telethon.tl.types import InputStickerSetItem, InputDocument, InputStickerSetID
 from telethon.tl.functions.messages import UploadMediaRequest, GetStickerSetRequest, GetAllStickersRequest
-from telethon.tl.functions.stickers import CreateStickerSetRequest, AddStickerToSetRequest
+from telethon.tl.functions.stickers import AddStickerToSetRequest
 from telethon.tl.types import InputMediaUploadedDocument, DocumentAttributeFilename
 from PIL import Image, ImageDraw, ImageFont
 import os
-from telethon import TelegramClient
+from telethon import TelegramClient, events
+from configparser import ConfigParser
+
+
+config = ConfigParser()
+config.read('secret_data/config.ini')
+
+path_to_font = config['System']['path_to_font']
+
+
+def size_font(len_text):
+
+    max_font_size = 64
+    coef = 1.68
+    font_size = int(max_font_size - coef * len_text)
+
+    return max(12, font_size)
 
 
 def create_image_with_text(avatar_path, text, output_path):
@@ -14,7 +30,7 @@ def create_image_with_text(avatar_path, text, output_path):
 
     img = Image.new('RGBA', (width, height), (24, 27, 34, 255))
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("arial.ttf", 37)
+    font = ImageFont.truetype(path_to_font, size_font(len(text)))
 
     avatar = Image.open(avatar_path).resize((height, height)).convert("RGBA")
     mask = Image.new("L", (height, height), 0)
@@ -29,8 +45,13 @@ def create_image_with_text(avatar_path, text, output_path):
     img.save(output_path)
 
 
-async def sticker(event, client: TelegramClient):
+async def sticker(event: events, client: TelegramClient):
+
     chat = await event.get_chat()
+
+    topic_id = await event.get_reply_message()
+
+    topic_id = topic_id.reply_to_msg_id
 
     if event.is_reply:
 
@@ -91,11 +112,11 @@ async def sticker(event, client: TelegramClient):
             os.remove(avatar_path)
             os.remove(output_path)
 
-            await client.send_file(chat, stickers.documents[-1])
+            await client.send_file(chat, stickers.documents[-1], reply_to=topic_id)
 
             await in_progress.delete()
 
         else:
-            await event.reply('Пожалуйста, ответьте на текстовое сообщение.')
+            await event.reply('<code>Usage: [reply to a text message]</code>', parse_mode='HTML')
     else:
-        await event.reply('Пожалуйста, ответьте на текстовое сообщение.')
+        await event.reply('<code>Usage: [reply to a text message]</code>', parse_mode='HTML')

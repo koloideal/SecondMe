@@ -46,7 +46,8 @@ async def currency_event(event):
     await currency(event, client)
 
 
-@client.on(events.NewMessage(pattern='/sticker'))
+@client.on(events.NewMessage(pattern=r'(?i)(^\?sticker)',
+                             outgoing=True))
 async def sticker_event(event):
 
     await sticker(event, client)
