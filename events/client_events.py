@@ -6,6 +6,7 @@ from events.only_my_events.you_file import you
 from events.for_all_events.currency_file import currency
 from events.only_my_events.sticker_file import sticker
 from events.only_my_events.ban_file import ban
+from events.only_my_events.clean_file import clean
 
 
 config = configparser.ConfigParser()
@@ -60,3 +61,11 @@ async def sticker_event(event):
 async def ban_event(event):
 
     await ban(event, client)
+
+
+@client.on(events.NewMessage(pattern=r'(?i)(^_clean$)',
+                             func=lambda event: event.is_private,
+                             outgoing=True))
+async def clean_event(event):
+
+    await clean(event, client)
