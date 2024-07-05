@@ -7,6 +7,7 @@ from events.for_all_events.currency_file import currency
 from events.only_my_events.sticker_file import sticker
 from events.only_my_events.ban_file import ban
 from events.only_my_events.clean_file import clean
+from events.for_all_events.help_file import help
 
 
 config = configparser.ConfigParser()
@@ -69,3 +70,10 @@ async def ban_event(event):
 async def clean_event(event):
 
     await clean(event, client)
+
+
+@client.on(events.NewMessage(pattern=r'(?i)(^-help$)',
+                             func=lambda event: event.is_private or event.is_group))
+async def help_event(event):
+
+    await help(event)
