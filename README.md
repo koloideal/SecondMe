@@ -33,16 +33,16 @@ pip install -r requirements.txt
 ## Особенности использования
 - Основной функционал юзербота:
 
-  Users commands
-  -help -- get help about commands
-  -currency -- get actually information about currencies
-  -me -- get information about you in Telegram
-  -weather <city name> -- get information about weather
-  Creators commands
-  _ban -- block user in private chat
-  _clean -- remove history in private chat
-  _sticker -- make sticker from reply message
-  _you -- get information about user in private chat
+  <b>Users commands</b><br>
+  -help -- get help about commands<br>
+  -currency -- get actually information about currencies<br>
+  -me -- get information about you in Telegram<br>
+  -weather <city name> -- get information about weather<br>
+  <b>Creators commands</b><br>
+  _ban -- block user in private chat<br>
+  _clean -- remove history in private chat<br>
+  _sticker -- make sticker from reply message<br>
+  _you -- get information about user in private chat<br>
   
 
 **Юзербот находится на стадии альфа-теста, поэтому баги и ошибки вполне вероятны и ожидаемы, в случае нахождения такого просьба скинуть скрины переписки с ботом в Telegram - <a href="https://t.me/kolo_id">@kolo_id<a>**
