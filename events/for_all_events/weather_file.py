@@ -30,8 +30,10 @@ async def weather(event, client):
                                         f'<pre>temp feels like: {json["main"]["feels_like"]}C</pre>\n'
                                         f'<pre>pressure: {json["main"]["pressure"]}mm</pre>\n'
                                         f'<pre>humidity: {json["main"]["humidity"]}%</pre>\n'
-                                        f'<pre>wind: {json["wind"]["speed"]}km/h</pre>\n', parse_mode='HTML')
+                                        f'<pre>wind: {json["wind"]["speed"]}km/h</pre>\n',
+                                  parse_mode='HTML',
+                                  reply_to=event.message)
 
     else:
 
-        await client.send_message(chat, '<pre>Invalid city</pre>', parse_mode='HTML')
+        await client.send_message(chat, '<pre>Invalid city</pre>', parse_mode='HTML', reply_to=event.message)

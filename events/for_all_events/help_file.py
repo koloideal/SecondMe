@@ -1,7 +1,8 @@
 import html
+from telethon.events import NewMessage
 
 
-async def help(event):
+async def help(event: NewMessage.Event):
 
     await event.reply('<code>Users commands</code>'
                       '<pre><code>-help</code> -- get help about commands</pre>'
@@ -13,4 +14,4 @@ async def help(event):
                       f'<pre><code>_clean</code> -- remove history in private chat</pre>'
                       f'<pre><code>_sticker</code> -- make sticker from reply message</pre>'
                       f'<pre><code>_you</code> -- get information about user in private chat</pre>',
-                      parse_mode='HTML')
+                      parse_mode='HTML', reply_to=event.message)

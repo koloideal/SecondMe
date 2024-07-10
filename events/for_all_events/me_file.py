@@ -1,7 +1,9 @@
 import os
+from telethon import TelegramClient
+from telethon.events import NewMessage
 
 
-async def me(event, client):
+async def me(event: NewMessage.Event, client: TelegramClient):
     chat = await event.get_chat()
     sender = await event.get_sender()
 
@@ -17,9 +19,9 @@ async def me(event, client):
 
     if not avatar:
 
-        await client.send_message(chat, caption, parse_mode='HTML')
+        await client.send_message(chat, caption, parse_mode='HTML', reply_to=event.message)
 
     else:
-        await client.send_file(chat, avatar, caption=caption, parse_mode='HTML')
+        await client.send_file(chat, avatar, caption=caption, parse_mode='HTML', reply_to=event.message)
 
     os.remove(path)

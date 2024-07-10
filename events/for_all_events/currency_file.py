@@ -27,4 +27,6 @@ async def currency(event: events, client):
                                     f'<pre>USD / UAH = {usd_uah}</pre>\n'
                                     f'<pre>USD / KZT = {usd_kzt}</pre>\n'
                                     f'<pre>USD / BTC = {usd_btc}</pre>\n'
-                                    f'<pre>USD / ETH = {usd_eth}</pre>', parse_mode='HTML')
+                                    f'<pre>USD / ETH = {usd_eth}</pre>',
+                              parse_mode='HTML',
+                              reply_to=event.message)
