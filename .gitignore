@@ -5,3 +5,4 @@ secret_data
 events/__pycache__
 events/for_all_events/__pycache__
 events/only_my_events/__pycache__
+me.session-journal
