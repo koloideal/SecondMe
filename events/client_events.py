@@ -2,6 +2,7 @@ from telethon import events, TelegramClient
 import configparser
 from events.for_all_events.me_file import me
 from events.for_all_events.weather_file import weather
+from events.only_my_events.logs_file import logs
 from events.only_my_events.you_file import you
 from events.for_all_events.currency_file import currency
 from events.only_my_events.sticker_file import sticker
@@ -68,3 +69,10 @@ async def clean_event(event: NewMessage.Event):
                       func=lambda event: event.is_private or event.is_group))
 async def help_event(event: NewMessage.Event):
     await help(event)
+
+
+@client.on(NewMessage(pattern=r'(?i)(^_logs$)',
+                      func=lambda event: event.is_private or event.is_group,
+                      outgoing=True))
+async def logs_event(event: NewMessage.Event):
+    await logs(event, client)
