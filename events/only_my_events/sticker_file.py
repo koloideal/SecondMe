@@ -17,7 +17,7 @@ path_to_font = config['System']['path_to_font']
 def size_font(len_text):
 
     max_font_size = 64
-    coef = 1.68
+    coef = 1.5
     font_size = int(max_font_size - coef * len_text)
 
     return max(12, font_size)
@@ -40,24 +40,30 @@ def create_image_with_text(avatar_path, text, output_path):
 
     img.paste(avatar, (20, 0), avatar)
 
-    draw.text((160, 40), text, font=font, fill=(255, 255, 255, 255))
+    draw.text((160, 30), text, font=font, fill=(255, 255, 255, 255))
 
     img.save(output_path)
 
 
 async def sticker(event: events, client: TelegramClient):
 
-    chat = await event.get_chat()
-
-    topic_id = await event.get_reply_message()
-
-    topic_id = topic_id.reply_to_msg_id
-
     if event.is_reply:
+
+        chat = await event.get_chat()
+
+        topic_id = await event.get_reply_message()
+
+        topic_id = topic_id.reply_to_msg_id
 
         replied_msg = await event.get_reply_message()
 
         if replied_msg.text:
+
+            if len(replied_msg.text) < 4 or len(replied_msg.text) > 20:
+
+                await event.reply('<code>The message should be 4 < len < 20 characters</code>', parse_mode='HTML')
+
+                return
 
             in_progress = await event.reply('In progress...')
 
