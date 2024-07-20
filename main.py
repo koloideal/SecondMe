@@ -7,6 +7,7 @@ if __name__ == '__main__':
 
     os.makedirs('secret_data', exist_ok=True)
     os.makedirs('stickers_data', exist_ok=True)
+    os.makedirs('fonts', exist_ok=True)
 
     try:
 

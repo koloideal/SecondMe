@@ -1,8 +1,11 @@
-from telethon import events, TelegramClient
+from telethon import TelegramClient
 import configparser
 from events.for_all_events.me_file import me
 from events.for_all_events.weather_file import weather
+from events.only_my_events.add_font_file import add_font
+from events.only_my_events.all_fonts_file import all_fonts
 from events.only_my_events.logs_file import logs
+from events.only_my_events.sel_font_file import sel_font
 from events.only_my_events.you_file import you
 from events.for_all_events.currency_file import currency
 from events.only_my_events.sticker_file import sticker
@@ -76,3 +79,24 @@ async def help_event(event: NewMessage.Event):
                       outgoing=True))
 async def logs_event(event: NewMessage.Event):
     await logs(event, client)
+
+
+@client.on(NewMessage(pattern=r'(?i)(^_add_font$)',
+                      func=lambda event: event.is_private or event.is_group,
+                      outgoing=True))
+async def add_font_event(event: NewMessage.Event):
+    await add_font(event, client)
+
+
+@client.on(NewMessage(pattern=r'(?i)(^_all_fonts$)',
+                      func=lambda event: event.is_private or event.is_group,
+                      outgoing=True))
+async def all_fonts_event(event: NewMessage.Event):
+    await all_fonts(event)
+
+
+@client.on(NewMessage(pattern=r'(?i)(^_sel_font)',
+                      func=lambda event: event.is_private or event.is_group,
+                      outgoing=True))
+async def sel_font_event(event: NewMessage.Event):
+    await sel_font(event)

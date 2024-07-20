@@ -8,12 +8,6 @@ from telethon import TelegramClient, events
 from configparser import ConfigParser
 
 
-config = ConfigParser()
-config.read('secret_data/config.ini')
-
-path_to_font = config['System']['path_to_font']
-
-
 def size_font(len_text):
 
     max_font_size = 64
@@ -24,6 +18,11 @@ def size_font(len_text):
 
 
 def create_image_with_text(avatar_path, text, output_path):
+
+    config = ConfigParser()
+    config.read('secret_data/config.ini')
+
+    path_to_font = config['System']['path_to_font']
 
     width = 512
     height = 128
